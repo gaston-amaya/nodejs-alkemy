@@ -14,7 +14,7 @@ export async function getMovies(req, res){
 }
 
 // create a movie 
-export async function createMovie(req, res) {
+export async function createMovie(req, res) { 
   const { picture, title, creationdate, rating } =
     req.body;
   try {
@@ -23,9 +23,12 @@ export async function createMovie(req, res) {
       title,
       creationdate: new Date(creationdate).getTime(),
       rating
-    },{
+    },
+    
+    {
         fields: ["picture", "title", "creationdate", "rating"]
     });
+    
     if (newMovie) {
       return res.json({
         message:

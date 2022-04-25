@@ -36,7 +36,8 @@ export async function createCharacter(req, res) {
         ],
       }
     );
-    if (newCharacter) {
+   
+    if (newCharacter){
       return res.json({
         message:
           "Character has been added successfully",

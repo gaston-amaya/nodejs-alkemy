@@ -8,7 +8,8 @@ const Character = sequelize.define(
   {
     id: {
       type: Sequelize.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     picture: {
       type: Sequelize.TEXT,

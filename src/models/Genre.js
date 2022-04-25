@@ -2,10 +2,16 @@
 
 import Sequelize from "sequelize";
 import { sequelize } from "../database/database";
+import Movie from "../models/Movies";
 
 const Genres = sequelize.define(
-  'Genres',
+  'genres',
   {
+    id:{
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
    picture: {
       type: Sequelize.TEXT,
       allowNull: false
@@ -20,6 +26,7 @@ const Genres = sequelize.define(
     timestamps: false,
   }
 );
+
 
 sequelize.sync({ force: true })
 

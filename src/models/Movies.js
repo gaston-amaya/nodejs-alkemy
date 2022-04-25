@@ -2,13 +2,15 @@
 
 import Sequelize from "sequelize";
 import { sequelize } from "../database/database";
+import Character from "../models/Character";
 
 const Movie = sequelize.define(
   'movies',
   {
     id: {
       type: Sequelize.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     picture: {
       type: Sequelize.TEXT,
@@ -21,8 +23,6 @@ const Movie = sequelize.define(
     },
     creationdate: {
       type: Sequelize.DATE,
-      
-
     },
     rating: {
       type: Sequelize.INTEGER,
@@ -33,6 +33,11 @@ const Movie = sequelize.define(
     timestamps: false,
   }
 );
+
+
+
+Movie.belongsToMany(Character, {through: "moviecharacters"})
+Character.belongsToMany(Movie, {through:"moviecharacters"})
 
 sequelize.sync({ force: true })
 
