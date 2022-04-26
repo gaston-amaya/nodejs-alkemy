@@ -2,7 +2,7 @@
 
 import Sequelize from "sequelize";
 import { sequelize } from "../database/database";
-import Movie from "../models/Movies";
+
 
 const Genres = sequelize.define(
   'genres',

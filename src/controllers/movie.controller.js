@@ -1,34 +1,66 @@
 /** @format */
-import Movie from '../models/Movies'
+import Movie from "../models/Movies";
+// search by query
 
-
-// get all the movies but only shows the 'picture, title and creationdate' attributes 
-
-export async function getMovies(req, res){
-  const values = await Movie.findAll({
-    attributes: ['picture', 'title', 'creationdate']
-  })
-  res.json({
-    data: values
-  })
+export async function queryMovie(req, res) {
+  if (req.query.name)
+    try {
+      const values = await Movie.findOne({
+         where: {
+          'title': req.query.name ,
+        },
+      });
+      return res.status(200).json({data: values});
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        message: "couldnt find the movie",
+        data: {},
+      });
+    }
 }
 
-// create a movie 
-export async function createMovie(req, res) { 
+// CRUD
+// get all the movies but only shows 'picture, title and creationdate' attributes
+
+export async function getMovies(req, res) {
+  const values = await Movie.findAll({
+    attributes: [
+      "picture",
+      "title",
+      "creationdate",
+    ],
+  });
+  res.json({
+    data: values,
+  });
+}
+
+// create a movie
+export async function createMovie(req, res) {
   const { picture, title, creationdate, rating } =
     req.body;
   try {
-    let newMovie = await Movie.create({
-      picture,
-      title,
-      creationdate: new Date(creationdate).getTime(),
-      rating
-    },
-    
-    {
-        fields: ["picture", "title", "creationdate", "rating"]
-    });
-    
+    let newMovie = await Movie.create(
+      {
+        picture,
+        title,
+        creationdate: new Date(
+          creationdate
+        ).getTime(),
+        rating,
+      },
+
+      {
+        fields: [
+          "picture",
+          "title",
+          "creationdate",
+          "rating",
+        ],
+      }
+    );
+
     if (newMovie) {
       return res.json({
         message:
@@ -37,38 +69,36 @@ export async function createMovie(req, res) {
       });
     }
   } catch (error) {
-      console.log(error)
+    console.log(error);
     res.status(500).json({
       message: "something went wrong",
-      data: {}
+      data: {},
     });
   }
 }
 
-// delete a movie 
+// delete a movie
 export async function deleteMovie(req, res) {
-  const {id} = req.params;
+  const { id } = req.params;
   const deleteRowCount = await Movie.destroy({
     where: {
-      id
-    }
+      id,
+    },
   });
   res.json({
-    message: 'Movie Deleted succesfully',
-    count: deleteRowCount
-  })
+    message: "Movie Deleted succesfully",
+    count: deleteRowCount,
+  });
 }
 
-// update a movie 
+// update a movie
 
 export async function updateMovie(req, res) {
   const { id } = req.params;
-  const { picture, title, creationdate, rating} =
+  const { picture, title, creationdate, rating } =
     req.body;
   try {
-    const movie = await Movie.findByPk(
-      id
-    );
+    const movie = await Movie.findByPk(id);
     movie.picture = picture;
     movie.title = title;
     movie.creationdate = creationdate;
@@ -85,7 +115,3 @@ export async function updateMovie(req, res) {
       .json({ message: error.message });
   }
 }
-
-
-
- 

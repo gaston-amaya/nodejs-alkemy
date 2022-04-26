@@ -2,7 +2,8 @@
 
 import Sequelize from "sequelize";
 import { sequelize } from "../database/database";
-import Character from "../models/Character";
+import Genres from "./Genre";
+
 
 const Movie = sequelize.define(
   'movies',
@@ -34,10 +35,13 @@ const Movie = sequelize.define(
   }
 );
 
+// association with genre
 
+Movie.belongsTo(Genres, {
+  foreignKey: "genreid",
+  targetKey: "id",
+})
 
-Movie.belongsToMany(Character, {through: "moviecharacters"})
-Character.belongsToMany(Movie, {through:"moviecharacters"})
 
 sequelize.sync({ force: true })
 

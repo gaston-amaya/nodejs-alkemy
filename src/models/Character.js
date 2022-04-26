@@ -2,9 +2,10 @@
 
 import Sequelize from "sequelize";
 import { sequelize } from "../database/database";
+import Movie from "../models/Movies";
 
 const Character = sequelize.define(
-  'characters',
+  'character',
   {
     id: {
       type: Sequelize.INTEGER,
@@ -38,6 +39,9 @@ const Character = sequelize.define(
     timestamps: false,
   }
 );
+
+Movie.belongsToMany(Character, {through: "moviecharacters"})
+Character.belongsToMany(Movie, {through:"moviecharacters"})
 
 sequelize.sync({ force: true })
 
