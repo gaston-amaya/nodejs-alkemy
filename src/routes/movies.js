@@ -1,14 +1,14 @@
 import { Router } from 'express';
 const router = Router();
 
-import {createMovie, getMovies, deleteMovie, updateMovie, queryMovie} from '../controllers/movie.controller';
+import {createMovie, getMovies, deleteMovie, updateMovie} from '../controllers/movie.controller';
 
 
 // api/movies/
 
 // get movies
 
-router.get('/', getMovies, queryMovie);
+router.get('/', getMovies);
 
 // create a movie 
 
