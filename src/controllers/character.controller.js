@@ -1,6 +1,4 @@
 /** @format */
-
-import res from "express/lib/response";
 import Character from "../models/Character";
 
 // get character but only show the data picture and name

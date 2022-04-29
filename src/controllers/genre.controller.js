@@ -1,9 +1,9 @@
-import res from "express/lib/response";
 import Genres from "../models/Genre";
 
 // get genre but only show the data picture and name
 export async function getGenres(req, res) {
-  const values = await Genre.findAll({
+  
+  const values = await Genres.findAll({
     attributes: ["picture", "name"],
   });
   res.json({
@@ -67,7 +67,7 @@ export async function deleteGenre(req, res) {
   const { picture, name} =
     req.body;
   try {
-    const character = await Genres.findByPk(
+    await Genres.findByPk(
       id
     );
     Genres.picture = picture;

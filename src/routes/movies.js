@@ -7,19 +7,16 @@ import {createMovie, getMovies, deleteMovie, updateMovie} from '../controllers/m
 // api/movies/
 
 // get movies
-
 router.get('/', getMovies);
 
 // create a movie 
-
 router.post('/', createMovie); 
 
 // delete a movie 
-
 router.delete('/:id', deleteMovie);
-// update a movie
 
- router.put('/:id', updateMovie)
+// update a movie
+router.put('/:id', updateMovie)
 
 
 export default router;

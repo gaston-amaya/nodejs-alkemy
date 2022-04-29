@@ -39,7 +39,7 @@ const Character = sequelize.define(
     timestamps: false,
   }
 );
-
+// assosciation between Movie and Character
 Movie.belongsToMany(Character, {through: "moviecharacters"})
 Character.belongsToMany(Movie, {through:"moviecharacters"})
 

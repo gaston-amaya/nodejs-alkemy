@@ -2,6 +2,9 @@ import express, {json} from "express";
 import morgan from "morgan";
 
 
+
+
+
 // importing routes
 import movieRoutes from './routes/movies';
 import characterRoutes from './routes/characters';
