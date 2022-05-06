@@ -6,7 +6,7 @@ import Character from "../models/Character";
 // CRUD
 // get all the movies but only shows 'picture, title and creationdate' attributes
 
-export async function getMovies(req, res) {
+export async function getMovies(_req, res) {
   const values = await Movie.findAll({
     attributes: [
       "picture",
@@ -20,44 +20,28 @@ export async function getMovies(req, res) {
 }
 
 // create a movie
+
 export async function createMovie(req, res) {
-  const { picture, title, creationdate, rating } =
-    req.body;
+  const { pciture, title, creationdate, rating } = req.body;
   try {
     let newMovie = await Movie.create(
       {
-        picture,
+        pciture,
         title,
-        creationdate: new Date(
-          creationdate
-        ).getTime(),
+        creationdate,
         rating,
       },
-
       {
-        fields: [
-          "picture",
-          "title",
-          "creationdate",
-          "rating",
-        ],
+        fields: ["picture", "title", "creationdate", "rating"],
       }
     );
-
-    if (newMovie) {
-      return res.json({
-        message:
-          "Movie has been added successfully",
-        data: newMovie,
-      });
-    }
+    return res.json(newMovie);
   } catch (error) {
-    console.log(error);
     res.status(500).json({
-      message: "something went wrong",
-      data: {},
+      message: error.message,
     });
   }
+  res.json("received");
 }
 
 // delete a movie

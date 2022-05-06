@@ -1,7 +1,7 @@
 import Genres from "../models/Genre";
 
 // get genre but only show the data picture and name
-export async function getGenres(req, res) {
+export async function getGenres(_req, res) {
   
   const values = await Genres.findAll({
     attributes: ["picture", "name"],
@@ -13,37 +13,25 @@ export async function getGenres(req, res) {
 
 // create a genre
 export async function createGenre(req, res) {
-  const { picture, name} =
-    req.body;
+  const { pciture, name} = req.body;
   try {
     let newGenre = await Genres.create(
       {
-        picture,
-        name
+        pciture,
+        name,
         
       },
       {
-        fields: [
-          "picture",
-          "name",
-          
-        ],
+        fields: ["picture", "name"],
       }
     );
-    if (newGenre) {
-      return res.json({
-        message:
-          "Genre has been added successfully",
-        data: newGenre,
-      });
-    }
+    return res.json(newGenre);
   } catch (error) {
-    console.log(error);
     res.status(500).json({
-      message: "something went wrong",
-      data: {},
+      message: error.message,
     });
   }
+  res.status(200).json("Genre added successfully");
 }
 
 // delete a character

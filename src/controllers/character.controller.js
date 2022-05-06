@@ -2,7 +2,7 @@
 import Character from "../models/Character";
 
 // get character but only show the data picture and name
-export async function getCharacters(req, res) {
+export async function getCharacters(_req, res) {
   const values = await Character.findAll({
     attributes: ["picture", "name"],
   });
@@ -34,21 +34,15 @@ export async function createCharacter(req, res) {
         ],
       }
     );
-   
-    if (newCharacter){
-      return res.json({
-        message:
-          "Character has been added successfully",
-        data: newCharacter,
-      });
-    }
+    return res.json(newCharacter);
   } catch (error) {
-    console.log(error);
     res.status(500).json({
-      message: "something went wrong",
-      data: {},
+      message: error.message,
     });
   }
+  res
+    .status(200)
+    .json("Character added successfully");
 }
 
 // delete a character
@@ -67,7 +61,7 @@ export async function deleteCharacter(req, res) {
 
 // update a character
 
- export async function updateCharacter(req, res) {
+export async function updateCharacter(req, res) {
   const { id } = req.params;
   const { picture, name, age, weight, story } =
     req.body;
@@ -92,5 +86,3 @@ export async function deleteCharacter(req, res) {
       .json({ message: error.message });
   }
 }
-
-
